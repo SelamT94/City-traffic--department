@@ -1,0 +1,12 @@
+city_dbt:
+  outputs:
+    dev:
+      dbname: traffic_analysis
+      host: localhost
+      pass: postgres
+      port: 5432
+      schema: public
+      threads: 1
+      type: postgres
+      user: postgres
+  target: dev
