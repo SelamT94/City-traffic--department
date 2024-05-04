@@ -1,0 +1,101 @@
+version: 2
+
+models:
+  - name: analytics.high_speed_vehicles
+    description: Selects tracks with average speed greater than 40
+    columns:
+      - name: track_id
+        description: Unique identifier for the track
+      - name: avg_speed
+        description: Average speed of the track
+    meta:
+      schema: analytics
+      materialized: table
+      unique_key: [track_id]
+
+  - name: analytics.long_distance_travelers
+    description: Selects tracks with total distance traveled greater than 400
+    columns:
+      - name: track_id
+        description: Unique identifier for the track
+      - name: traveled_distance
+        description: Total distance traveled by the track
+    meta:
+      schema: analytics
+      materialized: table
+      unique_key: [track_id]
+
+  - name: analytics.safety_analysis_summary
+    description: Calculates safety metrics and categorizes tracks based on speed and distance
+    columns:
+      - name: track_id
+        description: Unique identifier for the track
+      - name: avg_speed
+        description: Average speed of the track
+      - name: max_lon_acc
+        description: Maximum longitudinal acceleration
+      - name: max_lat_acc
+        description: Maximum lateral acceleration
+      - name: total_distance
+        description: Total distance traveled by the track
+      - name: speed_category
+        description: Categorization based on average speed
+      - name: distance_category
+        description: Categorization based on total distance traveled
+    meta:
+      schema: analytics
+      materialized: table
+      unique_key: [track_id]
+
+  - name: analytics.track_info_summary
+    description: Summary statistics for track information
+    columns:
+      - name: type
+        description: Type of vehicle
+      - name: track_count
+        description: Number of tracks for each vehicle type
+      - name: avg_distance
+        description: Average distance traveled for each vehicle type
+      - name: avg_speed
+        description: Average speed for each vehicle type
+    meta:
+      schema: analytics
+      materialized: table
+      unique_key: [type]
+
+  - name: analytics.trajectory_info_summary
+    description: Summary statistics for trajectory information
+    columns:
+      - name: track_id
+        description: Unique identifier for the track
+      - name: trajectory_count
+        description: Number of trajectories for each track
+      - name: avg_speed
+        description: Average speed for each track
+      - name: avg_lon
+        description: Average longitude for each track
+      - name: avg_lat
+        description: Average latitude for each track
+    meta:
+      schema: analytics
+      materialized: table
+      unique_key: [track_id]
+
+  - name: analytics.trajectory_summary
+    description: Calculates average speed and traveled distance for each trajectory
+    meta:
+      schema: analytics
+      materialized: table
+
+  - name: staging.track_info
+    description: Staging table for track information
+    meta:
+      schema: staging
+      materialized: table
+      unique_key: [track_id]
+
+  - name: staging.trajectory_info
+    description: Staging table for trajectory information
+    meta:
+      schema: staging
+      materialized: table
